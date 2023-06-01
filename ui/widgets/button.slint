@@ -1,0 +1,185 @@
+import { Body, ExtendedTouchArea } from "../components/components.slint";
+import { Brushes, Palette, Settings } from "../styling/styling.slint";
+
+component ButtonBase inherits ExtendedTouchArea {
+    in property <string> text <=> i-text.text;
+    in property <image> icon;
+    in property <brush> content-color <=> i-text.color;
+
+    border-radius: 16px;
+
+    i-layout := HorizontalLayout {
+        padding-left: 16px;
+        padding-right: 16px;
+        spacing: 4px;
+        alignment: center;
+
+        i-text := Body {
+            horizontal-alignment: center;
+            vertical-alignment: center;
+        }
+
+        if (icon.width > 0 && icon.height > 0) : Image {
+            source: root.icon;
+            colorize: root.content-color;
+            width: 16px;
+            height: self.width;
+        }
+    }
+}
+
+export component PrimaryButton {
+    callback clicked <=> i-button-base.clicked;
+
+    in property <bool> enabled <=> i-button-base.enabled;
+    out property <bool> has-focus <=> i-button-base.has-focus;
+    out property <bool> pressed <=> i-button-base.pressed;
+    in property <string> text <=> i-button-base.text;
+    in property <image> icon <=> i-button-base.icon;
+    in property <bool> destructive;
+
+    horizontal-stretch: 0;
+    vertical-stretch: 0;
+    forward-focus: i-button-base;
+    accessible-role: button;
+    accessible-label <=> i-button-base.text;
+    height: 32px;
+
+    i-button-base := ButtonBase {
+        background: root.destructive ? Brushes.destructive-color : Brushes.accent-color;
+        content-color: Brushes.on-accent-color;
+    }
+}
+
+export component StandardButton {
+    callback clicked <=> i-button-base.clicked;
+
+    in property <bool> enabled <=> i-button-base.enabled;
+    out property <bool> has-focus <=> i-button-base.has-focus;
+    out property <bool> pressed <=> i-button-base.pressed;
+    in property <string> text <=> i-button-base.text;
+    in property <image> icon <=> i-button-base.icon;
+
+    height: 32px;
+    horizontal-stretch: 0;
+    vertical-stretch: 0;
+    forward-focus: i-button-base;
+    accessible-role: button;
+    accessible-label <=> i-button-base.text;
+
+    i-button-base := ButtonBase {
+        // FIXME: correct color mapping
+        background: Settings.dark-color-scheme ? #AEAEAE40 : #5D5D5D40;
+        content-color: Palette.neutral-9;
+    }
+}
+
+export component TextButton {
+    callback clicked <=> i-button-base.clicked;
+
+    in property <bool> enabled <=> i-button-base.enabled;
+    out property <bool> has-focus <=> i-button-base.has-focus;
+    out property <bool> pressed <=> i-button-base.pressed;
+    in property <string> text <=> i-button-base.text;
+    in property <image> icon <=> i-button-base.icon;
+    in property <bool> destructive;
+
+    height: 32px;
+    horizontal-stretch: 0;
+    vertical-stretch: 0;
+    forward-focus: i-button-base;
+    accessible-role: button;
+    accessible-label <=> i-button-base.text;
+
+    i-button-base := ButtonBase {
+        // FIXME: correct color mapping
+        content-color: root.destructive ? Brushes.destructive-color : Brushes.accent-text-color;
+    }
+}
+
+// export component IconButton {
+// }
+
+export component Blub inherits Rectangle {
+    width: 600px;
+    height: 800px;
+    background: Brushes.bg-color;
+
+    HorizontalLayout {
+        alignment: start;
+
+        VerticalLayout {
+            padding: 16px;
+            spacing: 12px;
+            alignment: start;
+
+            HorizontalLayout {
+                spacing: 4px;
+
+                PrimaryButton {
+                    text: "Default";
+                }
+
+                PrimaryButton {
+                    text: "Disabled";
+                    enabled: false;
+                }
+            }
+
+
+            HorizontalLayout {
+                spacing: 4px;
+
+                PrimaryButton {
+                    text: "Default";
+                    destructive: true;
+                }
+                PrimaryButton {
+                    text: "Disabled";
+                    destructive: true;
+                    enabled: false;
+                }
+            }
+
+            HorizontalLayout {
+                spacing: 4px;
+
+                StandardButton {
+                    text: "Default";
+                }
+                StandardButton {
+                    text: "Disabled";
+                    enabled: false;
+                }
+            }
+
+            HorizontalLayout {
+                TextButton {
+                    text: "Destructive";
+                    destructive: true;
+                }
+                TextButton {
+                    text: "Disabled";
+                    destructive: true;
+                    enabled: false;
+                }
+            }
+
+            HorizontalLayout {
+                spacing: 4px;
+
+                TextButton {
+                    text: "Light";
+
+                    clicked => {
+                        Settings.dark-color-scheme = !Settings.dark-color-scheme;
+                    }
+                }
+                TextButton {
+                    text: "Disabled";
+                    enabled: false;
+                }
+            }
+        }
+    }
+}

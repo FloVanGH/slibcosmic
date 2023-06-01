@@ -1,0 +1,57 @@
+import { Brushes } from "../styling/styling.slint";
+
+export component ExtendedTouchArea inherits Rectangle {
+    callback clicked <=> i-touch-area.clicked;
+
+    in property <bool> enabled <=> i-touch-area.enabled;
+    out property <bool> pressed <=> i-touch-area.pressed;
+    out property <bool> has-hover <=> i-touch-area.has-hover;
+    out property <bool> has-focus <=> i-focus-scope.has-focus;
+
+    forward-focus: i-focus-scope;
+
+    i-state-layer := Rectangle {
+        border-radius: root.border-radius;
+
+        @children
+    }
+
+    // focus border
+    if (root.has-focus) : Rectangle {
+        x: -3px;
+        y: -3px;
+        width: root.width + 6px;
+        height: root.height + 6px;
+        border-width: 1px;
+        border-color: Brushes.accent-color;
+        border-radius: i-state-layer.border-radius + 3px;
+    }
+
+    i-touch-area := TouchArea {}
+
+    i-focus-scope := FocusScope {
+        x: 0;
+        width: 0px; // Do not react on clicks
+        enabled <=> root.enabled;
+
+        key-pressed(event) => {
+            if (event.text == " " || event.text == "\n") {
+                 root.clicked();
+                 return accept;
+            }
+            return reject;
+        }
+    }
+
+    states [
+        disabled when !root.enabled : {
+            root.opacity: 0.5;
+        }
+        pressed when root.pressed : {
+            i-state-layer.background: Brushes.pressed-state-color;
+        }
+        hover when root.has-hover : {
+            i-state-layer.background: Brushes.hover-state-color;
+        }
+    ]
+}

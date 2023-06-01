@@ -1,7 +1,73 @@
-import { CosmicWindow } from "_imports/cosmic.slint";
+import { CosmicWindow, StandardButton, PrimaryButton, TextButton, Settings } from "_imports/cosmic.slint";
 
 export component Cosmic inherits CosmicWindow {
     min-width: 600px;
     min-height: 300px;
     title: "COSMIC Design System - Slint";
+
+    VerticalLayout {
+        padding: 16px;
+        spacing: 12px;
+        alignment: start;
+
+        HorizontalLayout {
+            alignment: start;
+            spacing: 4px;
+
+            PrimaryButton {
+                text: "Default";
+            }
+
+            PrimaryButton {
+                text: "Disabled";
+                enabled: false;
+            }
+        }
+
+
+        HorizontalLayout {
+            alignment: start;
+            spacing: 4px;
+
+            PrimaryButton {
+                text: "Default";
+                destructive: true;
+            }
+            PrimaryButton {
+                text: "Disabled";
+                destructive: true;
+                enabled: false;
+            }
+        }
+
+        HorizontalLayout {
+            alignment: start;
+            spacing: 4px;
+
+            StandardButton {
+                text: "Default";
+            }
+            StandardButton {
+                text: "Disabled";
+                enabled: false;
+            }
+        }
+
+        HorizontalLayout {
+            alignment: start;
+            spacing: 4px;
+
+            TextButton {
+                text: "Light";
+
+                clicked => {
+                    Settings.dark-color-scheme = !Settings.dark-color-scheme;
+                }
+            }
+            TextButton {
+                text: "Disabled";
+                enabled: false;
+            }
+        }
+    }
 }
