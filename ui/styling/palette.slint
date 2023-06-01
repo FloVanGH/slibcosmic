@@ -1,0 +1,30 @@
+import { Settings } from "settings.slint";
+
+// COSMIC Palette
+export global Palette {
+    // Palette
+    // Colors used for various points of emphasis in the UI.
+    out property <brush> blue: Settings.dark-color-scheme ? #94EBEB : #00496D;
+    out property <brush> red: Settings.dark-color-scheme ? #FFB5B4 : #A0252B;
+    out property <brush> green: Settings.dark-color-scheme ? #ACF7D2 : #3B6E43;
+    out property <brush> yellow: Settings.dark-color-scheme ? #FFF19E : #966800;
+
+    // Surface Grays
+    // Colors used for three levels of surfaces in the UI.
+    out property <brush> gray-1: Settings.dark-color-scheme ? #1E1E1E : #DEDEDE;
+    out property <brush> gray-2: Settings.dark-color-scheme ? #292929 : #E9E9E9;
+    out property <brush> gray-3: Settings.dark-color-scheme ? #2E2E2E : #F4F4F4;
+
+    // System Neutrals
+    // A wider spread of dark oclors for more general use.
+    out property <brush> neutral-1: Settings.dark-color-scheme ? #000 : #FFF;
+    out property <brush> neutral-2: Settings.dark-color-scheme ? #272727 : #E4E4E4;
+    out property <brush> neutral-3: Settings.dark-color-scheme ? #424242 : #C9C9C9;
+    out property <brush> neutral-4: Settings.dark-color-scheme ? #5D5D5D : #AEAEAE;
+    out property <brush> neutral-5: Settings.dark-color-scheme ? #787978 : #939393;
+    out property <brush> neutral-6: Settings.dark-color-scheme ? #939393 : #787878;
+    out property <brush> neutral-7: Settings.dark-color-scheme ? #AEAEAE : #5D5D5D;
+    out property <brush> neutral-8: Settings.dark-color-scheme ? #C9C9C9 : #424242;
+    out property <brush> neutral-9: Settings.dark-color-scheme ? #E4E4E4 : #272727;
+    out property <brush> neutral-10: Settings.dark-color-scheme ? #E4E4E4 : #272727;
+}

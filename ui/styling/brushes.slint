@@ -1,0 +1,49 @@
+import { Palette } from "palette.slint";
+import { Settings } from "settings.slint";
+
+export global Brushes {
+    // Colors
+    out property <brush> accent-color <=> Palette.blue;
+    out property <brush> sucess-color <=> Palette.green;
+    out property <brush> destructive-color <=> Palette.red;
+    out property <brush> warning-color <=> Palette.yellow;
+
+    // Containers
+    out property <brush> bg-color <=> Palette.gray-1;
+    // bg-comopnent-color gray-1 + neutral-10, 0.08, gray-1 + neutral-1, 0.075
+    out property <brush> primary-container-color <=> Palette.gray-2;
+    // primary-comopnent-color gray-2 + neutral-10, 0.08, gray-2 + neutral-1, 0.09
+    out property <brush> secondary-container-color <=> Palette.gray-3;
+    // secondary-comopnent-color gray-3 + neutral-10, 0.08, neutral-1
+
+    // Text
+    out property <brush> on-bg-color: Settings.dark-color-scheme ? Palette.neutral-7 : Palette.neutral-9;
+    out property <brush> on-bg-component-color: Palette.neutral-8;
+    out property <brush> on-primary-container-color: Palette.neutral-8;
+    out property <brush> on-primary-component-color: Palette.neutral-8;
+    out property <brush> on-secondary-container-color: Palette.neutral-8;
+    out property <brush> on-secondary-component-color: Settings.dark-color-scheme ? Palette.neutral-9 : Palette.neutral-8;
+    out property <brush> accent-text-color: accent-color;
+    out property <brush> success-text-color: sucess-color;
+    out property <brush> destructive-text-color: destructive-color;
+    out property <brush> warning-text-color: warning-color;
+    out property <brush> on-accent-color: Palette.neutral-1;
+    out property <brush> on-sucess-color: Palette.neutral-1;
+    out property <brush> on-destructive-color: Palette.neutral-1;
+    out property <brush> on-warnign-color: Palette.neutral-1;
+
+    // Borders and dividers
+    out property <brush> bg-divider: Settings.dark-color-scheme ? #AEAEAE33 : #5D5D5D33;
+    out property <brush> bg-component-divider: Settings.dark-color-scheme ? #AEAEAE33 : #AEAEAE33;
+    out property <brush> primary-container-divider: Settings.dark-color-scheme ? #AEAEAE33 : #AEAEAE33;
+    out property <brush> primary-component-divider: Settings.dark-color-scheme ? #AEAEAE33 : #AEAEAE33;
+    out property <brush> secondary-container-divider: Settings.dark-color-scheme ? #AEAEAE33 : #AEAEAE33;
+    out property <brush> secondary-component-divider: Settings.dark-color-scheme ? #E4E4E433 : #AEAEAE33;
+
+    // States
+    out property <brush> hover-state-color: Settings.dark-color-scheme ? #0000001A : #FFFFFF1A;
+    out property <brush> pressed-state-color: Settings.dark-color-scheme ? #00000033 : #FFFFFF33;
+    out property <brush> selected-state-color: Settings.dark-color-scheme ? #0000001A : #FFFFFF1A;
+    out property <brush> selected-state-text-color: accent-text-color;
+    out property <brush> focus-color: accent-color;
+}

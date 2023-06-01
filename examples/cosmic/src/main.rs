@@ -6,5 +6,5 @@ mod generated_code {
 pub use generated_code::*;
 
 fn main() {
-    CosmicWindow::new().unwrap().run().unwrap();
+    Cosmic::new().unwrap().run().unwrap();
 }
