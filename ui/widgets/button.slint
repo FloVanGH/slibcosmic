@@ -1,26 +1,46 @@
 import { Body, ExtendedTouchArea } from "../components/components.slint";
-import { Brushes, Palette, Settings } from "../styling/styling.slint";
+import { Brushes, Palette, Settings, Icons } from "../styling/styling.slint";
 
 component ButtonBase inherits ExtendedTouchArea {
-    in property <string> text <=> i-text.text;
-    in property <image> icon;
-    in property <brush> content-color <=> i-text.color;
+    in property <string> text;
+    in property <image> leading-icon;
+    in property <image> trailing-icon;
+    in property <brush> content-color;
 
+    horizontal-stretch: 0;
+    vertical-stretch: 0;
     border-radius: 16px;
+    min-height: max(32px, i-layout.min-height);
+    min-width: self.min-height;
+    padding-left: 16px;
+    padding-right: 16px;
 
     i-layout := HorizontalLayout {
-        padding-left: 16px;
-        padding-right: 16px;
+        padding-left: root.padding-left;
+        padding-right: root.padding-right;
         spacing: 4px;
         alignment: center;
 
-        i-text := Body {
-            horizontal-alignment: center;
-            vertical-alignment: center;
+        if (leading-icon.width > 0 && leading-icon.height > 0) : Image {
+            image-fit: contain;
+            y: (parent.height - self.height) / 2;
+            source: root.leading-icon;
+            colorize: root.content-color;
+            width: 16px;
+            height: self.width;
         }
 
-        if (icon.width > 0 && icon.height > 0) : Image {
-            source: root.icon;
+        if (root.text != "") : Body {
+            horizontal-alignment: center;
+            vertical-alignment: center;
+            text: root.text;
+            color: root.content-color;
+        }
+
+        if (trailing-icon.width > 0 && trailing-icon.height > 0) : Image {
+            image-fit: contain;
+            y: (parent.height - self.height) / 2;
+            source: root.trailing-icon;
             colorize: root.content-color;
             width: 16px;
             height: self.width;
@@ -35,15 +55,14 @@ export component PrimaryButton {
     out property <bool> has-focus <=> i-button-base.has-focus;
     out property <bool> pressed <=> i-button-base.pressed;
     in property <string> text <=> i-button-base.text;
-    in property <image> icon <=> i-button-base.icon;
     in property <bool> destructive;
 
-    horizontal-stretch: 0;
-    vertical-stretch: 0;
+    min-height: i-button-base.min-height;
+    horizontal-stretch: i-button-base.horizontal-stretch;
+    vertical-stretch: i-button-base.vertical-stretch;
     forward-focus: i-button-base;
     accessible-role: button;
     accessible-label <=> i-button-base.text;
-    height: 32px;
 
     i-button-base := ButtonBase {
         background: root.destructive ? Brushes.destructive-color : Brushes.accent-color;
@@ -58,14 +77,14 @@ export component StandardButton {
     out property <bool> has-focus <=> i-button-base.has-focus;
     out property <bool> pressed <=> i-button-base.pressed;
     in property <string> text <=> i-button-base.text;
-    in property <image> icon <=> i-button-base.icon;
 
-    height: 32px;
-    horizontal-stretch: 0;
-    vertical-stretch: 0;
+    horizontal-stretch: i-button-base.horizontal-stretch;
+    vertical-stretch: i-button-base.vertical-stretch;
     forward-focus: i-button-base;
     accessible-role: button;
     accessible-label <=> i-button-base.text;
+    min-width: i-button-base.min-width;
+    min-height: i-button-base.min-height;
 
     i-button-base := ButtonBase {
         // FIXME: correct color mapping
@@ -81,15 +100,16 @@ export component TextButton {
     out property <bool> has-focus <=> i-button-base.has-focus;
     out property <bool> pressed <=> i-button-base.pressed;
     in property <string> text <=> i-button-base.text;
-    in property <image> icon <=> i-button-base.icon;
+    in property <image> icon <=> i-button-base.trailing-icon;
     in property <bool> destructive;
 
-    height: 32px;
-    horizontal-stretch: 0;
-    vertical-stretch: 0;
+    horizontal-stretch: i-button-base.horizontal-stretch;
+    vertical-stretch: i-button-base.vertical-stretch;
     forward-focus: i-button-base;
     accessible-role: button;
     accessible-label <=> i-button-base.text;
+    min-width: i-button-base.min-width;
+    min-height: i-button-base.min-height;
 
     i-button-base := ButtonBase {
         // FIXME: correct color mapping
@@ -97,8 +117,44 @@ export component TextButton {
     }
 }
 
-// export component IconButton {
-// }
+export component IconButton {
+    callback clicked();
+    callback toggled(bool /* checked */);
+
+    in property <bool> enabled <=> i-button-base.enabled;
+    out property <bool> has-focus <=> i-button-base.has-focus;
+    out property <bool> pressed <=> i-button-base.pressed;
+    in property <string> text <=> i-button-base.text;
+    in property <image> leading-icon <=> i-button-base.leading-icon;
+    in property <image> trailing-icon <=> i-button-base.trailing-icon;
+    in-out property <bool> checked <=> i-button-base.selected;
+    in property <bool> checkable;
+    in property <bool> primary;
+
+    horizontal-stretch: i-button-base.horizontal-stretch;
+    vertical-stretch: i-button-base.vertical-stretch;
+    forward-focus: i-button-base;
+    accessible-role: button;
+    accessible-label <=> i-button-base.text;
+    min-width: i-button-base.min-width;
+    min-height: i-button-base.min-height;
+
+    i-button-base := ButtonBase {
+        // FIXME: correct color mapping
+        content-color: root.checked || root.primary ? Brushes.accent-text-color : Brushes.on-primary-container-color;
+        padding-left: 8px;
+        padding-right: 8px;
+
+        clicked => {
+            if (root.checkable) {
+                root.checked = !root.checked;
+                root.toggled(root.checked);
+            }
+
+            root.clicked();
+        }
+    }
+}
 
 export component Blub inherits Rectangle {
     width: 600px;
@@ -161,6 +217,18 @@ export component Blub inherits Rectangle {
                 TextButton {
                     text: "Disabled";
                     destructive: true;
+                    enabled: false;
+                }
+            }
+
+            HorizontalLayout {
+                TextButton {
+                    text: "Default";
+                    icon: Icons.arrow-right;
+                }
+                TextButton {
+                    text: "Disabled";
+                    icon: Icons.arrow-right;
                     enabled: false;
                 }
             }

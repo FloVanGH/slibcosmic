@@ -4,6 +4,7 @@ export component ExtendedTouchArea inherits Rectangle {
     callback clicked <=> i-touch-area.clicked;
 
     in property <bool> enabled <=> i-touch-area.enabled;
+    in property <bool> selected;
     out property <bool> pressed <=> i-touch-area.pressed;
     out property <bool> has-hover <=> i-touch-area.has-hover;
     out property <bool> has-focus <=> i-focus-scope.has-focus;
@@ -46,6 +47,9 @@ export component ExtendedTouchArea inherits Rectangle {
     states [
         disabled when !root.enabled : {
             root.opacity: 0.5;
+        }
+        selected when root.selected : {
+            i-state-layer.background: Brushes.selected-state-color;
         }
         pressed when root.pressed : {
             i-state-layer.background: Brushes.pressed-state-color;
