@@ -1,0 +1,37 @@
+import { ExtendedTouchArea } from "../components/components.slint";
+import { Brushes, Palette, Settings } from "../styling/styling.slint";
+
+export component Toggle {
+    callback toggled(bool /* checked */);
+
+    in-out property <bool> checked;
+    in property <bool> enabled <=> i-extended-touch-area.enabled;
+
+    width: 48px;
+    height: 24px;
+
+    i-extended-touch-area := ExtendedTouchArea {
+        border-radius: 12px;
+        background: Palette.neutral-5;
+
+        i-thumb := Rectangle {
+            x: 2px;
+            width: 20px;
+            height: self.width;
+            border-radius: 10px;
+            background: Palette.neutral-2;
+        }
+
+        clicked => {
+            root.checked = !root.checked;
+            root.toggled(root.checked);
+        }
+    }
+
+    states [
+        checked when root.checked : {
+            i-thumb.x: root.width - i-thumb.width - 2px;
+            i-extended-touch-area.background: Brushes.accent-color;
+        }
+    ]
+}

@@ -1,4 +1,4 @@
-import { CosmicWindow, StandardButton, PrimaryButton, TextButton, Settings } from "_imports/cosmic.slint";
+import { CosmicWindow, StandardButton, PrimaryButton, TextButton, Toggle, Body, Settings } from "_imports/cosmic.slint";
 
 export component Cosmic inherits CosmicWindow {
     min-width: 600px;
@@ -58,7 +58,7 @@ export component Cosmic inherits CosmicWindow {
             spacing: 4px;
 
             TextButton {
-                text: "Light";
+                text: "Default";
 
                 clicked => {
                     Settings.dark-color-scheme = !Settings.dark-color-scheme;
@@ -67,6 +67,47 @@ export component Cosmic inherits CosmicWindow {
             TextButton {
                 text: "Disabled";
                 enabled: false;
+            }
+        }
+
+        HorizontalLayout {
+            alignment: start;
+            spacing: 4px;
+
+            TextButton {
+                text: "Default";
+                destructive: true;
+            }
+            TextButton {
+                text: "Disabled";
+                destructive: true;
+            }
+        }
+
+        HorizontalLayout {
+            alignment: start;
+            spacing: 4px;
+
+            Toggle {}
+
+            Toggle {
+                enabled: false;
+            }
+        }
+
+        HorizontalLayout {
+            alignment: start;
+            spacing: 8px;
+
+            Toggle {
+                toggled(checked) => {
+                    Settings.dark-color-scheme = !checked;
+                }
+            }
+
+            Body {
+                text: "Light";
+                vertical-alignment: center;
             }
         }
     }
