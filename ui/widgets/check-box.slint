@@ -1,0 +1,88 @@
+import { ExtendedTouchArea, Body } from "../components/components.slint";
+import { Brushes, Palette, Icons } from "../styling/styling.slint";
+
+export component CheckBox {
+    callback toggled(bool /* checked */, bool /* partial-checked */);
+
+    in property <bool> enabled <=> i-extended-touch-area.enabled;
+    in property <bool> tristate;
+    in-out property <bool> checked;
+    in-out property <bool> partial-checked;
+    in property <string> text <=> i-body.text;
+
+    min-width: 16px;
+    min-height: 16px;
+    forward-focus: i-extended-touch-area;
+
+    i-touch-area := TouchArea {
+        enabled: i-extended-touch-area.enabled;
+
+        clicked => {
+            i-extended-touch-area.clicked();
+        }
+    }
+
+    HorizontalLayout {
+        spacing: 8px;
+
+        i-extended-touch-area := ExtendedTouchArea {
+            y: (parent.height - self.height) / 2;
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+
+            i-check-box := Rectangle {
+                width: 100%;
+                height: 100%;
+                border-radius: i-extended-touch-area.border-radius;
+                background: Palette.neutral-7;
+                border-color: Palette.neutral-8;
+                border-width: 1px;
+
+                if (root.checked || root.partial-checked) : Image {
+                    colorize: Palette.neutral-2;
+                    source: root.checked ? Icons.checkmark : Icons.minus;
+                    image-fit: contain;
+                    width: 12px;
+                    height: self.width;
+                }
+            }
+
+            clicked => {
+                root.toggle();
+            }
+        }
+
+        i-body := Body {
+            vertical-alignment: center;
+            color: Palette.neutral-9;
+        }
+    }
+
+    function toggle() {
+        if (!root.tristate) {
+            root.checked = !root.checked;
+        } else if (!root.checked && !root.partial-checked) {
+            root.checked = true;
+        } else if (root.checked && !root.partial-checked) {
+            root.checked = false;
+            root.partial-checked = true;
+        } else {
+            root.checked = false;
+            root.partial-checked = false;
+        }
+
+        root.toggled(root.checked, root.partial-checked);
+    }
+
+    states [
+        checked when root.checked : {
+            i-check-box.background: Brushes.accent-color;
+            i-check-box.border-width: 0;
+        }
+        partia-checked when root.partial-checked : {
+            i-check-box.background: Brushes.accent-color;
+            i-check-box.border-width: 0;
+        }
+    ]
+}

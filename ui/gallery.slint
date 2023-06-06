@@ -1,0 +1,236 @@
+import { CosmicWindow, StandardButton, PrimaryButton, TextButton, Toggle, Body, Settings, Icons,
+    IconButton } from "lib.slint";
+import { CheckBox } from "widgets/widgets.slint";
+
+export component Cosmic inherits CosmicWindow {
+    min-width: 600px;
+    min-height: 300px;
+    title: "COSMIC Design System - Slint";
+
+    HorizontalLayout {
+        spacing: 4px;
+
+        VerticalLayout {
+            padding: 16px;
+            spacing: 12px;
+            alignment: start;
+
+            HorizontalLayout {
+                alignment: start;
+                spacing: 4px;
+
+                PrimaryButton {
+                    text: "Default";
+                }
+
+                PrimaryButton {
+                    text: "Disabled";
+                    enabled: false;
+                }
+            }
+
+            HorizontalLayout {
+                alignment: start;
+                spacing: 4px;
+
+                PrimaryButton {
+                    text: "Default";
+                    destructive: true;
+                }
+                PrimaryButton {
+                    text: "Disabled";
+                    destructive: true;
+                    enabled: false;
+                }
+            }
+
+            HorizontalLayout {
+                alignment: start;
+                spacing: 4px;
+
+                StandardButton {
+                    text: "Default";
+                }
+                StandardButton {
+                    text: "Disabled";
+                    enabled: false;
+                }
+            }
+
+            HorizontalLayout {
+                alignment: start;
+                spacing: 4px;
+
+                TextButton {
+                    text: "Default";
+                }
+                TextButton {
+                    text: "Disabled";
+                    enabled: false;
+                }
+            }
+
+            HorizontalLayout {
+                alignment: start;
+                spacing: 4px;
+
+                TextButton {
+                    text: "Default";
+                    destructive: true;
+                }
+                TextButton {
+                    text: "Disabled";
+                    enabled: false;
+                    destructive: true;
+                }
+            }
+
+            HorizontalLayout {
+                alignment: start;
+                spacing: 4px;
+
+                TextButton {
+                    text: "Default";
+                    icon: Icons.arrow-right;
+                }
+                TextButton {
+                    text: "Disabled";
+                    enabled: false;
+                    icon: Icons.arrow-right;
+                }
+            }
+
+            HorizontalLayout {
+                alignment: start;
+                spacing: 4px;
+
+                Toggle {}
+
+                Toggle {
+                    enabled: false;
+                }
+            }
+
+            HorizontalLayout {
+                alignment: start;
+                spacing: 8px;
+
+                Toggle {
+                    toggled(checked) => {
+                        Settings.dark-color-scheme = !checked;
+                    }
+                }
+
+                Body {
+                    text: "Light";
+                    vertical-alignment: center;
+                }
+            }
+        }
+
+        VerticalLayout {
+            padding: 16px;
+            spacing: 12px;
+            alignment: start;
+
+            HorizontalLayout {
+                alignment: start;
+                spacing: 4px;
+
+                IconButton {
+                    trailing-icon: Icons.settings;
+                    checkable: true;
+                }
+
+                IconButton {
+                    trailing-icon: Icons.settings;
+                    enabled: false;
+                }
+            }
+
+            HorizontalLayout {
+                alignment: start;
+                spacing: 4px;
+
+                IconButton {
+                    trailing-icon: Icons.settings;
+                    primary: true;
+                }
+
+                IconButton {
+                    trailing-icon: Icons.settings;
+                    primary: true;
+                    enabled: false;
+                }
+            }
+
+            HorizontalLayout {
+                alignment: start;
+                spacing: 4px;
+
+                IconButton {
+                    leading-icon: Icons.bluetooth;
+                    trailing-icon: Icons.drop-down;
+                    checkable: true;
+                    primary: true;
+                }
+
+                IconButton {
+                    leading-icon: Icons.bluetooth;
+                    trailing-icon: Icons.drop-down;
+                    checkable: true;
+                    primary: true;
+                    enabled: false;
+                }
+            }
+
+            HorizontalLayout {
+                alignment: start;
+                spacing: 4px;
+
+                IconButton {
+                    leading-icon: Icons.bluetooth;
+                    checkable: true;
+                    text: "en";
+                }
+
+                IconButton {
+                    leading-icon: Icons.bluetooth;
+                    text: "en";
+                    enabled: false;
+                }
+            }
+
+            HorizontalLayout {
+                alignment: start;
+                spacing: 4px;
+
+                CheckBox {
+                    text: "CheckBox";
+                }
+
+                CheckBox {
+                    text: "CheckBox";
+                    enabled: false;
+                }
+            }
+
+            HorizontalLayout {
+                alignment: start;
+                spacing: 4px;
+
+                CheckBox {
+                    text: "CheckBox";
+                    tristate: true;
+                }
+
+                CheckBox {
+                    text: "Disabled";
+                    tristate: true;
+                    enabled: false;
+                    partial-checked: true;
+                }
+            }
+        }
+    }
+}
