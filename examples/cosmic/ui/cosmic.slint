@@ -1,5 +1,5 @@
 import { CosmicWindow, StandardButton, PrimaryButton, TextButton, Toggle, Body, Settings, Icons,
-    IconButton } from "_imports/cosmic.slint";
+    IconButton, CheckBox, Palette } from "_imports/cosmic.slint";
 
 export component Cosmic inherits CosmicWindow {
     min-width: 600px;
@@ -115,6 +115,7 @@ export component Cosmic inherits CosmicWindow {
                 spacing: 8px;
 
                 Toggle {
+                    checked: !Settings.dark-color-scheme;
                     toggled(checked) => {
                         Settings.dark-color-scheme = !checked;
                     }
@@ -123,6 +124,7 @@ export component Cosmic inherits CosmicWindow {
                 Body {
                     text: "Light";
                     vertical-alignment: center;
+                    color: Palette.neutral-9;
                 }
             }
         }
@@ -197,6 +199,37 @@ export component Cosmic inherits CosmicWindow {
                     leading-icon: Icons.bluetooth;
                     text: "en";
                     enabled: false;
+                }
+            }
+
+            HorizontalLayout {
+                alignment: start;
+                spacing: 4px;
+
+                CheckBox {
+                    text: "CheckBox";
+                }
+
+                CheckBox {
+                    text: "CheckBox";
+                    enabled: false;
+                }
+            }
+
+            HorizontalLayout {
+                alignment: start;
+                spacing: 4px;
+
+                CheckBox {
+                    text: "CheckBox";
+                    tristate: true;
+                }
+
+                CheckBox {
+                    text: "Disabled";
+                    tristate: true;
+                    enabled: false;
+                    partial-checked: true;
                 }
             }
         }
