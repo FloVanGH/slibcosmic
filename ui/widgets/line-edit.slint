@@ -1,0 +1,141 @@
+import { Body, Caption } from "../components/components.slint";
+import { Brushes, Palette, Typography, Settings, Icons } from "../styling/styling.slint";
+
+export component LineEdit {
+    callback accepted(string /* text */);
+    callback edited(string /* text */);
+    callback trailing-icon-clicked();
+
+    in property <string> label-text;
+    in property <string> helper-text;
+    in property <string> placeholder-text;
+    in-out property <string> text <=> i-text-input.text;
+    out property <bool> has-focus: i-text-input.has-focus;
+    in property <bool> enabled <=> i-text-input.enabled;
+    in property input-type <=> i-text-input.input-type;
+    in property horizontal-alignment <=> i-text-input.horizontal-alignment;
+    in property read-only <=> i-text-input.read-only;
+    in property <bool> has-error;
+    in property <image> leading-icon;
+    in property <image> trailing-icon;
+
+    min-width: 160px;
+    min-height: max(32px, i-layout.min-height);
+
+    i-layout := VerticalLayout {
+        spacing: 8px;
+
+        Rectangle {
+            height: 11px;
+
+            if (label-text != "") : Body {
+                x: 0;
+                width: i-inner-layout.width;
+                text: label-text;
+                horizontal-alignment: left;
+                color: Palette.neutral-9;
+                vertical-stretch: 0;
+            }
+        }
+
+
+        Rectangle {
+            vertical-stretch: 1;
+            background: Brushes.bg-divider;
+            border-radius: 6px;
+            min-height: 32px;
+
+            i-inner-layout := HorizontalLayout {
+                padding-left: 16px;
+                padding-right: 16px;
+                spacing: 8px;
+
+                if (root.leading-icon.width > 0 && root.leading-icon.height > 0) : Image {
+                    image-fit: contain;
+                    y: (parent.height - self.height) / 2;
+                    source: root.leading-icon;
+                    // FIXME: use color of Brushes or palette
+                    colorize: Settings.dark-color-scheme ? #E4E4E5B3 : #272727B3;
+                    width: 12px;
+                }
+
+                Rectangle {
+                    clip: true;
+
+                    if (root.text == "" && root.placeholder-text != "") : Body {
+                        horizontal-alignment: left;
+                        // FIXME: use color of Brushes or palette
+                        color: Settings.dark-color-scheme ? #E4E4E5B3 : #272727B3;
+                        width: 100%;
+                        height: 100%;
+                        vertical-alignment: center;
+                        text: root.placeholder-text;
+                    }
+
+                    i-text-input := TextInput {
+                        property <length> computed_x;
+                        property <length> padding-outer: i-inner-layout.padding-left + i-inner-layout.padding-right;
+
+                        x: min(0px, max(parent.width - self.width, self.computed_x));
+                        width: max(parent.width, self.preferred-width);
+                        height: 100%;
+                        font-family: "Fira Sans";
+                        font-weight: Typography.body.font-weight;
+                        font-size: Typography.body.font-size;
+                        vertical-alignment: center;
+
+                        accepted => { root.accepted(self.text); }
+                        edited => { root.edited(self.text); }
+                        cursor-position-changed(cpos) => {
+                            if (cpos.x + self.computed_x < self.padding-outer) {
+                                self.computed_x = - cpos.x + self.padding-outer;
+                            } else if (cpos.x + self.computed_x > parent.width - self.padding-outer) {
+                                self.computed_x = parent.width - cpos.x - self.padding-outer;
+                            }
+                        }
+                    }
+                }
+
+                if ((root.trailing-icon.width > 0 && root.trailing-icon.height > 0) || root.has-error) : Image {
+                    image-fit: contain;
+                    y: (parent.height - self.height) / 2;
+                    source: root.has-error ? Icons.error : root.trailing-icon;
+                    // FIXME: use color of Brushes or palette
+                    colorize: root.has-error ? Brushes.destructive-color : Settings.dark-color-scheme ? #E4E4E5B3 : #272727B3;
+                    width: 12px;
+
+                    TouchArea {
+                        enabled: !root.has-error;
+
+                        clicked => {
+                            root.trailing-icon-clicked();
+                        }
+                    }
+                }
+            }
+
+            // focus border
+            if (root.has-focus || root.has-error) : Rectangle {
+                x: -3px;
+                y: -3px;
+                width: parent.width + 6px;
+                height: parent.height + 6px;
+                border-width: 1px;
+                border-color: root.has-error ? Brushes.destructive-color : Brushes.accent-color;
+                border-radius: parent.border-radius + 3px;
+            }
+        }
+
+        Rectangle {
+            height: 14px;
+
+            if (helper-text != "") : Caption {
+                x: 0;
+                width: i-inner-layout.width;
+                horizontal-alignment: left;
+                text: root.helper-text;
+                color: root.has-error ? Brushes.destructive-color :Palette.neutral-9;
+            }
+        }
+    }
+}

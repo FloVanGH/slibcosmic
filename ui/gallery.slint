@@ -1,5 +1,5 @@
 import { CosmicWindow, StandardButton, PrimaryButton, TextButton, Toggle, Body, Settings, Icons,
-    IconButton, Palette } from "lib.slint";
+    IconButton, Palette, LineEdit } from "lib.slint";
 import { CheckBox } from "widgets/widgets.slint";
 
 export component Cosmic inherits CosmicWindow {
@@ -231,6 +231,26 @@ export component Cosmic inherits CosmicWindow {
                     tristate: true;
                     enabled: false;
                     partial-checked: true;
+                }
+            }
+
+            VerticalLayout {
+                spacing: 16px;
+
+                LineEdit {
+                    label-text: "Label";
+                    helper-text: "Helper text";
+                    placeholder-text: "Placeholder";
+                    leading-icon: Icons.lock;
+                    trailing-icon: Icons.eye;
+                }
+
+                LineEdit {
+                    label-text: "Label";
+                    helper-text: "Helper text";
+                    placeholder-text: "Placeholder";
+                    has-error: true;
+                    leading-icon: Icons.lock;
                 }
             }
         }

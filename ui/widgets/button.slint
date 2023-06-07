@@ -21,7 +21,7 @@ component ButtonBase inherits ExtendedTouchArea {
         spacing: 4px;
         alignment: center;
 
-        if (leading-icon.width > 0 && leading-icon.height > 0) : Image {
+        if (root.leading-icon.width > 0 && root.leading-icon.height > 0) : Image {
             image-fit: contain;
             y: (parent.height - self.height) / 2;
             source: root.leading-icon;
@@ -37,7 +37,7 @@ component ButtonBase inherits ExtendedTouchArea {
             color: root.content-color;
         }
 
-        if (trailing-icon.width > 0 && trailing-icon.height > 0) : Image {
+        if (root.trailing-icon.width > 0 && root.trailing-icon.height > 0) : Image {
             image-fit: contain;
             y: (parent.height - self.height) / 2;
             source: root.trailing-icon;
