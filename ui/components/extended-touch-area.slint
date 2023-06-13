@@ -19,8 +19,8 @@ export component ExtendedTouchArea inherits Rectangle {
 
     // focus border
     if (root.has-focus) : Rectangle {
-        x: -3px;
-        y: -3px;
+        x: (root.width - self.width) / 2;
+        y: (root.height - self.height) / 2;
         width: root.width + 6px;
         height: root.height + 6px;
         border-width: 1px;

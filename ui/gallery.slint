@@ -1,5 +1,5 @@
 import { CosmicWindow, StandardButton, PrimaryButton, TextButton, Toggle, Body, Settings, Icons,
-    IconButton, Palette, LineEdit } from "lib.slint";
+    IconButton, Palette, LineEdit, SpinButton } from "lib.slint";
 import { CheckBox } from "widgets/widgets.slint";
 
 export component Cosmic inherits CosmicWindow {
@@ -127,6 +127,13 @@ export component Cosmic inherits CosmicWindow {
                     vertical-alignment: center;
                     color: Palette.neutral-9;
                 }
+            }
+
+            HorizontalLayout {
+                alignment: start;
+                spacing: 4px;
+
+                SpinButton {}
             }
         }
 
