@@ -2,16 +2,16 @@ import { Body, ExtendedTouchArea } from "../components/components.slint";
 import { IconButton } from "button.slint";
 import { Brushes, Palette, Settings, Icons, Typography } from "../styling/styling.slint";
 
-export component SpinButton {
-    in-out property <int> value;
+export component SpinBox {
     in property <int> minimum;
     in property <int> maximum: 9;
     in property <bool> enabled <=> i-text-input.enabled;
     out property <bool> has-focus <=> i-text-input.has-focus;
+    in-out property <int> value;
 
     forward-focus: i-text-input;
-    min-width: 94px;
-    min-height: 32px;
+    min-width: max(94px, i-layout.min-width);
+    min-height: max(32px, i-layout.min-height);
     horizontal-stretch: 1;
     vertical-stretch: 0;
     accessible-role: spinbox;
@@ -35,7 +35,7 @@ export component SpinButton {
         border-radius: 16px;
         forward-focus: i-text-input;
 
-        HorizontalLayout {
+        i-layout := HorizontalLayout {
             i-minus-button := IconButton {
                 leading-icon: Icons.minus;
                 forward-focus: i-text-input;

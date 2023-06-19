@@ -6,12 +6,12 @@ export component CheckBox {
 
     in property <bool> enabled <=> i-extended-touch-area.enabled;
     in property <bool> tristate;
+    in property <string> text <=> i-body.text;
     in-out property <bool> checked;
     in-out property <bool> partial-checked;
-    in property <string> text <=> i-body.text;
 
-    min-width: 16px;
-    min-height: 16px;
+    min-width: max(16px, i-layout.min-width);
+    min-height: max(16px, i-layout.min-height);
     forward-focus: i-extended-touch-area;
 
     i-touch-area := TouchArea {
@@ -22,7 +22,7 @@ export component CheckBox {
         }
     }
 
-    HorizontalLayout {
+    i-layout := HorizontalLayout {
         spacing: 8px;
 
         i-extended-touch-area := ExtendedTouchArea {

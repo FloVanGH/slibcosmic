@@ -52,10 +52,10 @@ export component PrimaryButton {
     callback clicked <=> i-button-base.clicked;
 
     in property <bool> enabled <=> i-button-base.enabled;
-    out property <bool> has-focus <=> i-button-base.has-focus;
-    out property <bool> pressed <=> i-button-base.pressed;
     in property <string> text <=> i-button-base.text;
     in property <bool> destructive;
+    out property <bool> has-focus <=> i-button-base.has-focus;
+    out property <bool> pressed <=> i-button-base.pressed;
 
     min-height: i-button-base.min-height;
     horizontal-stretch: i-button-base.horizontal-stretch;
@@ -74,9 +74,9 @@ export component StandardButton {
     callback clicked <=> i-button-base.clicked;
 
     in property <bool> enabled <=> i-button-base.enabled;
+    in property <string> text <=> i-button-base.text;
     out property <bool> has-focus <=> i-button-base.has-focus;
     out property <bool> pressed <=> i-button-base.pressed;
-    in property <string> text <=> i-button-base.text;
 
     horizontal-stretch: i-button-base.horizontal-stretch;
     vertical-stretch: i-button-base.vertical-stretch;
@@ -96,12 +96,13 @@ export component StandardButton {
 export component TextButton {
     callback clicked <=> i-button-base.clicked;
 
-    in property <bool> enabled <=> i-button-base.enabled;
-    out property <bool> has-focus <=> i-button-base.has-focus;
-    out property <bool> pressed <=> i-button-base.pressed;
     in property <string> text <=> i-button-base.text;
     in property <image> icon <=> i-button-base.trailing-icon;
     in property <bool> destructive;
+    in property <bool> enabled <=> i-button-base.enabled;
+    out property <bool> has-focus <=> i-button-base.has-focus;
+    out property <bool> pressed <=> i-button-base.pressed;
+
 
     horizontal-stretch: i-button-base.horizontal-stretch;
     vertical-stretch: i-button-base.vertical-stretch;
@@ -118,19 +119,20 @@ export component TextButton {
 }
 
 export component IconButton {
-    callback clicked();
+    callback clicked;
     callback toggled(bool /* checked */);
 
-    in property <bool> enabled <=> i-button-base.enabled;
-    out property <bool> has-focus <=> i-button-base.has-focus;
-    out property <bool> pressed <=> i-button-base.pressed;
     in property <string> text <=> i-button-base.text;
     in property <image> leading-icon <=> i-button-base.leading-icon;
     in property <image> trailing-icon <=> i-button-base.trailing-icon;
-    in-out property <bool> checked <=> i-button-base.selected;
+    in property <bool> enabled <=> i-button-base.enabled;
     in property <bool> checkable;
     in property <bool> primary;
+    out property <bool> has-focus <=> i-button-base.has-focus;
+    out property <bool> pressed <=> i-button-base.pressed;
     out property <bool> has-hover <=> i-button-base.has-hover;
+    in-out property <bool> checked <=> i-button-base.selected;
+
 
     horizontal-stretch: i-button-base.horizontal-stretch;
     vertical-stretch: i-button-base.vertical-stretch;

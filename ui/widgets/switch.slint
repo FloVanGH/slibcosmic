@@ -1,0 +1,47 @@
+import { ExtendedTouchArea, Body } from "../components/components.slint";
+import { Brushes, Palette } from "../styling/styling.slint";
+
+export component Switch {
+    callback toggled(bool /* checked */);
+
+    in property <bool> enabled <=> i-extended-touch-area.enabled;
+    in property <string> text <=> i-body.text;
+    in-out property <bool> checked;
+
+    width: 48px;
+    height: 24px;
+
+    i-layout := HorizontalLayout {
+        spacing: 8px;
+
+        i-extended-touch-area := ExtendedTouchArea {
+            border-radius: 12px;
+            background: Palette.neutral-5;
+
+            i-thumb := Rectangle {
+                x: 2px;
+                width: 20px;
+                height: self.width;
+                border-radius: 10px;
+                background: Palette.neutral-2;
+            }
+
+            clicked => {
+                root.checked = !root.checked;
+                root.toggled(root.checked);
+            }
+        }
+
+        i-body := Body {
+            vertical-alignment: center;
+            color: Palette.neutral-9;
+        }
+    }
+
+    states [
+        checked when root.checked : {
+            i-thumb.x: root.width - i-thumb.width - 2px;
+            i-extended-touch-area.background: Brushes.accent-color;
+        }
+    ]
+}

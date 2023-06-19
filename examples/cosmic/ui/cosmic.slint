@@ -1,4 +1,4 @@
-import { CosmicWindow, StandardButton, PrimaryButton, TextButton, Toggle, Body, Settings, Icons,
+import { CosmicWindow, StandardButton, PrimaryButton, TextButton, Switch, Body, Settings, Icons,
     IconButton, CheckBox, Palette, LineEdit } from "_imports/cosmic.slint";
 
     export component Cosmic inherits CosmicWindow {
@@ -103,9 +103,9 @@ import { CosmicWindow, StandardButton, PrimaryButton, TextButton, Toggle, Body, 
                     alignment: start;
                     spacing: 4px;
 
-                    Toggle {}
+                    Switch {}
 
-                    Toggle {
+                    Switch {
                         enabled: false;
                     }
                 }
@@ -114,7 +114,7 @@ import { CosmicWindow, StandardButton, PrimaryButton, TextButton, Toggle, Body, 
                     alignment: start;
                     spacing: 8px;
 
-                    Toggle {
+                    Switch {
                         checked: !Settings.dark-color-scheme;
                         toggled(checked) => {
                             Settings.dark-color-scheme = !checked;

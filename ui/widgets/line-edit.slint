@@ -9,8 +9,6 @@ export component LineEdit {
     in property <string> label-text;
     in property <string> helper-text;
     in property <string> placeholder-text;
-    in-out property <string> text <=> i-text-input.text;
-    out property <bool> has-focus: i-text-input.has-focus;
     in property <bool> enabled <=> i-text-input.enabled;
     in property input-type <=> i-text-input.input-type;
     in property horizontal-alignment <=> i-text-input.horizontal-alignment;
@@ -18,8 +16,10 @@ export component LineEdit {
     in property <bool> has-error;
     in property <image> leading-icon;
     in property <image> trailing-icon;
+    out property <bool> has-focus: i-text-input.has-focus;
+    in-out property <string> text <=> i-text-input.text;
 
-    min-width: 160px;
+    min-width: max(160px, i-layout.min-width);
     min-height: max(32px, i-layout.min-height);
 
     i-layout := VerticalLayout {
@@ -37,7 +37,6 @@ export component LineEdit {
                 vertical-stretch: 0;
             }
         }
-
 
         Rectangle {
             vertical-stretch: 1;
