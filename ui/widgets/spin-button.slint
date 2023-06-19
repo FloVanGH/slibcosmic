@@ -84,15 +84,23 @@ export component SpinButton {
         }
     }
 
+    function update-value(value: int) {
+        if (value < root.minimum || value > root.maximum) {
+            return;
+        }
+
+        root.value = value;
+    }
+
     function increment() {
         i-text-input.focus();
-        root.value += 1;
+        root.update-value(root.value + 1);
         root.update-text();
     }
 
     function decrement() {
         i-text-input.focus();
-        root.value += 1;
+        root.update-value(root.value - 1);
         root.update-text();
     }
 
