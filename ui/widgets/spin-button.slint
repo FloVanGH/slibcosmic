@@ -57,7 +57,7 @@ export component SpinButton {
                     text: root.value;
 
                     edited => {
-                        if (self.text.is-float()) {
+                        if (self.text.is-float() && self.text.to-float() <= root.minimum && self.text.to-float() <= root.maximum) {
                             root.value = self.text.to-float();
                             return;
                         }
