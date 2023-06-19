@@ -1,0 +1,57 @@
+import { Body } from "../components/components.slint";
+import { Brushes, Typography, Icons } from "../styling/styling.slint";
+
+
+export component Hyperlink {
+    callback clicked <=> i-touch-area.clicked;
+
+    in property <string> text <=> i-text.text;
+    in property <bool> enabled <=> i-touch-area.enabled;
+
+    horizontal-stretch: 1;
+    vertical-stretch: 0;
+    min-height: max(20px, i-layout.min-height);
+
+    i-layout := HorizontalLayout {
+        spacing: 4px;
+
+        Rectangle {
+            i-text := Body {
+                color: Brushes.accent-text-color;
+                vertical-alignment: center;
+                horizontal-alignment: left;
+            }
+
+            i-underline := Rectangle {
+                y: i-text.height - 1px;
+                height: 1px;
+                background: i-text.color;
+                visible: false;
+            }
+        }
+
+        Image {
+            image-fit: contain;
+            y: (parent.height - self.height) / 2;
+            source: Icons.link;
+            colorize: i-text.color;
+            width: 16px;
+            height: self.width;
+        }
+    }
+
+    i-touch-area := TouchArea {}
+
+    states [
+        disabled when !root.enabled : {
+            root.opacity: 0.5;
+        }
+        pressed when i-touch-area.pressed : {
+            i-underline.visible: true;
+            i-text.font-weight: Typography.semibold-font-weight;
+        }
+        hover when i-touch-area.has-hover : {
+            i-underline.visible: true;
+        }
+    ]
+}

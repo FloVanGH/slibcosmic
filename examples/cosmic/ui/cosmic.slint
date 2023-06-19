@@ -1,257 +1,281 @@
 import { CosmicWindow, StandardButton, PrimaryButton, TextButton, Switch, Body, Settings, Icons,
-    IconButton, CheckBox, Palette, LineEdit } from "_imports/cosmic.slint";
+    IconButton, CheckBox, Palette, LineEdit, SpinBox, Hyperlink } from "_imports/cosmic.slint";
 
-    export component Cosmic inherits CosmicWindow {
-        min-width: 600px;
-        min-height: 300px;
-        title: "COSMIC Design System - Slint";
+export component Cosmic inherits CosmicWindow {
+    min-width: 600px;
+    min-height: 300px;
+    title: "COSMIC Design System - Slint";
 
-        HorizontalLayout {
-            spacing: 4px;
+    HorizontalLayout {
+        spacing: 4px;
 
-            VerticalLayout {
-                padding: 16px;
-                spacing: 12px;
+        VerticalLayout {
+            padding: 16px;
+            spacing: 12px;
+            alignment: start;
+
+            HorizontalLayout {
                 alignment: start;
+                spacing: 4px;
 
-                HorizontalLayout {
-                    alignment: start;
-                    spacing: 4px;
+                PrimaryButton {
+                    text: "Default";
+                }
 
-                    PrimaryButton {
-                        text: "Default";
-                    }
+                PrimaryButton {
+                    text: "Disabled";
+                    enabled: false;
+                }
+            }
 
-                    PrimaryButton {
-                        text: "Disabled";
-                        enabled: false;
+            HorizontalLayout {
+                alignment: start;
+                spacing: 4px;
+
+                PrimaryButton {
+                    text: "Default";
+                    destructive: true;
+                }
+                PrimaryButton {
+                    text: "Disabled";
+                    destructive: true;
+                    enabled: false;
+                }
+            }
+
+            HorizontalLayout {
+                alignment: start;
+                spacing: 4px;
+
+                StandardButton {
+                    text: "Default";
+                }
+                StandardButton {
+                    text: "Disabled";
+                    enabled: false;
+                }
+            }
+
+            HorizontalLayout {
+                alignment: start;
+                spacing: 4px;
+
+                TextButton {
+                    text: "Default";
+                }
+                TextButton {
+                    text: "Disabled";
+                    enabled: false;
+                }
+            }
+
+            HorizontalLayout {
+                alignment: start;
+                spacing: 4px;
+
+                TextButton {
+                    text: "Default";
+                    destructive: true;
+                }
+                TextButton {
+                    text: "Disabled";
+                    enabled: false;
+                    destructive: true;
+                }
+            }
+
+            HorizontalLayout {
+                alignment: start;
+                spacing: 4px;
+
+                TextButton {
+                    text: "Default";
+                    icon: Icons.arrow-right;
+                }
+                TextButton {
+                    text: "Disabled";
+                    enabled: false;
+                    icon: Icons.arrow-right;
+                }
+            }
+
+            HorizontalLayout {
+                alignment: start;
+                spacing: 4px;
+
+                Switch {}
+
+                Switch {
+                    enabled: false;
+                }
+            }
+
+            HorizontalLayout {
+                alignment: start;
+                spacing: 8px;
+
+                Switch {
+                    checked: !Settings.dark-color-scheme;
+                    toggled(checked) => {
+                        Settings.dark-color-scheme = !checked;
                     }
                 }
 
-                HorizontalLayout {
-                    alignment: start;
-                    spacing: 4px;
+                Body {
+                    text: "Light";
+                    vertical-alignment: center;
+                    color: Palette.neutral-9;
+                }
+            }
 
-                    PrimaryButton {
-                        text: "Default";
-                        destructive: true;
-                    }
-                    PrimaryButton {
-                        text: "Disabled";
-                        destructive: true;
-                        enabled: false;
-                    }
+            HorizontalLayout {
+                alignment: start;
+                spacing: 4px;
+
+                SpinBox {}
+
+                SpinBox {
+                    enabled: false;
+                }
+            }
+
+            HorizontalLayout {
+                alignment: start;
+                spacing: 4px;
+
+                Hyperlink {
+                    text: "Hyperlink";
+                }
+                Hyperlink {
+                    text: "Hyperlink";
+                    enabled: false;
+                }
+            }
+        }
+
+        VerticalLayout {
+            padding: 16px;
+            spacing: 12px;
+            alignment: start;
+
+            HorizontalLayout {
+                alignment: start;
+                spacing: 4px;
+
+                IconButton {
+                    trailing-icon: Icons.settings;
+                    checkable: true;
                 }
 
-                HorizontalLayout {
-                    alignment: start;
-                    spacing: 4px;
+                IconButton {
+                    trailing-icon: Icons.settings;
+                    enabled: false;
+                }
+            }
 
-                    StandardButton {
-                        text: "Default";
-                    }
-                    StandardButton {
-                        text: "Disabled";
-                        enabled: false;
-                    }
+            HorizontalLayout {
+                alignment: start;
+                spacing: 4px;
+
+                IconButton {
+                    trailing-icon: Icons.settings;
+                    primary: true;
                 }
 
-                HorizontalLayout {
-                    alignment: start;
-                    spacing: 4px;
+                IconButton {
+                    trailing-icon: Icons.settings;
+                    primary: true;
+                    enabled: false;
+                }
+            }
 
-                    TextButton {
-                        text: "Default";
-                    }
-                    TextButton {
-                        text: "Disabled";
-                        enabled: false;
-                    }
+            HorizontalLayout {
+                alignment: start;
+                spacing: 4px;
+
+                IconButton {
+                    leading-icon: Icons.bluetooth;
+                    trailing-icon: Icons.drop-down;
+                    checkable: true;
+                    primary: true;
                 }
 
-                HorizontalLayout {
-                    alignment: start;
-                    spacing: 4px;
+                IconButton {
+                    leading-icon: Icons.bluetooth;
+                    trailing-icon: Icons.drop-down;
+                    checkable: true;
+                    primary: true;
+                    enabled: false;
+                }
+            }
 
-                    TextButton {
-                        text: "Default";
-                        destructive: true;
-                    }
-                    TextButton {
-                        text: "Disabled";
-                        enabled: false;
-                        destructive: true;
-                    }
+            HorizontalLayout {
+                alignment: start;
+                spacing: 4px;
+
+                IconButton {
+                    leading-icon: Icons.bluetooth;
+                    checkable: true;
+                    text: "en";
                 }
 
-                HorizontalLayout {
-                    alignment: start;
-                    spacing: 4px;
+                IconButton {
+                    leading-icon: Icons.bluetooth;
+                    text: "en";
+                    enabled: false;
+                }
+            }
 
-                    TextButton {
-                        text: "Default";
-                        icon: Icons.arrow-right;
-                    }
-                    TextButton {
-                        text: "Disabled";
-                        enabled: false;
-                        icon: Icons.arrow-right;
-                    }
+            HorizontalLayout {
+                alignment: start;
+                spacing: 4px;
+
+                CheckBox {
+                    text: "CheckBox";
                 }
 
-                HorizontalLayout {
-                    alignment: start;
-                    spacing: 4px;
+                CheckBox {
+                    text: "CheckBox";
+                    enabled: false;
+                }
+            }
 
-                    Switch {}
+            HorizontalLayout {
+                alignment: start;
+                spacing: 4px;
 
-                    Switch {
-                        enabled: false;
-                    }
+                CheckBox {
+                    text: "CheckBox";
+                    tristate: true;
                 }
 
-                HorizontalLayout {
-                    alignment: start;
-                    spacing: 8px;
-
-                    Switch {
-                        checked: !Settings.dark-color-scheme;
-                        toggled(checked) => {
-                            Settings.dark-color-scheme = !checked;
-                        }
-                    }
-
-                    Body {
-                        text: "Light";
-                        vertical-alignment: center;
-                        color: Palette.neutral-9;
-                    }
+                CheckBox {
+                    text: "Disabled";
+                    tristate: true;
+                    enabled: false;
+                    partial-checked: true;
                 }
             }
 
             VerticalLayout {
-                padding: 16px;
-                spacing: 12px;
-                alignment: start;
+                spacing: 16px;
 
-                HorizontalLayout {
-                    alignment: start;
-                    spacing: 4px;
-
-                    IconButton {
-                        trailing-icon: Icons.settings;
-                        checkable: true;
-                    }
-
-                    IconButton {
-                        trailing-icon: Icons.settings;
-                        enabled: false;
-                    }
+                LineEdit {
+                    label-text: "Label";
+                    helper-text: "Helper text";
+                    placeholder-text: "Placeholder";
+                    leading-icon: Icons.lock;
+                    trailing-icon: Icons.eye;
                 }
 
-                HorizontalLayout {
-                    alignment: start;
-                    spacing: 4px;
-
-                    IconButton {
-                        trailing-icon: Icons.settings;
-                        primary: true;
-                    }
-
-                    IconButton {
-                        trailing-icon: Icons.settings;
-                        primary: true;
-                        enabled: false;
-                    }
-                }
-
-                HorizontalLayout {
-                    alignment: start;
-                    spacing: 4px;
-
-                    IconButton {
-                        leading-icon: Icons.bluetooth;
-                        trailing-icon: Icons.drop-down;
-                        checkable: true;
-                        primary: true;
-                    }
-
-                    IconButton {
-                        leading-icon: Icons.bluetooth;
-                        trailing-icon: Icons.drop-down;
-                        checkable: true;
-                        primary: true;
-                        enabled: false;
-                    }
-                }
-
-                HorizontalLayout {
-                    alignment: start;
-                    spacing: 4px;
-
-                    IconButton {
-                        leading-icon: Icons.bluetooth;
-                        checkable: true;
-                        text: "en";
-                    }
-
-                    IconButton {
-                        leading-icon: Icons.bluetooth;
-                        text: "en";
-                        enabled: false;
-                    }
-                }
-
-                HorizontalLayout {
-                    alignment: start;
-                    spacing: 4px;
-
-                    CheckBox {
-                        text: "CheckBox";
-                    }
-
-                    CheckBox {
-                        text: "CheckBox";
-                        enabled: false;
-                    }
-                }
-
-                HorizontalLayout {
-                    alignment: start;
-                    spacing: 4px;
-
-                    CheckBox {
-                        text: "CheckBox";
-                        tristate: true;
-                    }
-
-                    CheckBox {
-                        text: "Disabled";
-                        tristate: true;
-                        enabled: false;
-                        partial-checked: true;
-                    }
-                }
-
-                VerticalLayout {
-                    spacing: 16px;
-
-                    LineEdit {
-                        label-text: "Label";
-                        helper-text: "Helper text";
-                        placeholder-text: "Placeholder";
-                        leading-icon: Icons.lock;
-                        trailing-icon: Icons.eye;
-                    }
-
-                    LineEdit {
-                        label-text: "Label";
-                        helper-text: "Helper text";
-                        placeholder-text: "Placeholder";
-                        has-error: true;
-                        leading-icon: Icons.lock;
-                    }
+                LineEdit {
+                    label-text: "Label";
+                    helper-text: "Helper text";
+                    placeholder-text: "Placeholder";
+                    has-error: true;
+                    leading-icon: Icons.lock;
                 }
             }
         }
     }
+}

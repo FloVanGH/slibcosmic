@@ -1,6 +1,6 @@
 import { CosmicWindow, StandardButton, PrimaryButton, TextButton, Switch, Body, Settings, Icons,
-    IconButton, Palette, LineEdit, SpinBox } from "lib.slint";
-import { CheckBox } from "widgets/widgets.slint";
+    IconButton, Palette, LineEdit, SpinBox, Hyperlink } from "lib.slint";
+import { CheckBox , Hyperlink} from "widgets/widgets.slint";
 
 export component Cosmic inherits CosmicWindow {
     min-width: 600px;
@@ -134,6 +134,15 @@ export component Cosmic inherits CosmicWindow {
                 spacing: 4px;
 
                 SpinBox {}
+            }
+
+            HorizontalLayout {
+                alignment: start;
+                spacing: 4px;
+
+                Hyperlink {
+                    text: "Hperlink";
+                }
             }
         }
 
