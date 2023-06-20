@@ -4,6 +4,8 @@
 
 Building blocks for COSMIC applications with Slint.
 
+Display gallery on [SlintPad](https://slint-ui.com/snapshots/master/editor/?load_url=https://github.com/FloVanGH/slibcosmic/blob/main/examples/cosmic/ui/cosmic.slint)
+
 ## Current state
 
 **This project is in early stage. It's not completed. Changes on API side are possible. Not yet production ready.**
@@ -13,7 +15,3 @@ Building blocks for COSMIC applications with Slint.
 ```sh
 cargo run -p cosmic
 ```
-
-## Open widget gallery in SlintPad
-
-https://slint-ui.com/snapshots/master/editor/?load_url=https://raw.githubusercontent.com/FloVanGH/slibcosmic/main/ui/gallery.slint

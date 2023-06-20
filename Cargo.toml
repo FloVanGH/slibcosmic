@@ -9,6 +9,6 @@ name = "scosmic"
 
 [workspace]
 members = [
-    "examples/*"
+    "examples/cosmic/rust"
 ]
 

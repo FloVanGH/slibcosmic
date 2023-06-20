@@ -6,7 +6,7 @@ use std::{env, fs, io, path::*};
 fn main() -> io::Result<()> {
     let ui_lib_name = "cosmic";
     let ui_lib_path = "ui";
-    let ui_lib_file = format!("{ui_lib_path}/lib.slint");
+    let ui_lib_file = format!("{ui_lib_path}/cosmic.slint");
 
     let manifest_path = Path::new(
         &env::var_os("CARGO_MANIFEST_DIR")
