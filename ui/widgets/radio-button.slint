@@ -1,0 +1,79 @@
+import { ExtendedTouchArea, Body } from "../components/components.slint";
+import { Brushes, Palette, Icons } from "../styling/styling.slint";
+
+export component RadioButton {
+    callback clicked <=> i-extended-touch-area.clicked;
+
+    in property <bool> enabled <=> i-extended-touch-area.enabled;
+    in property <string> text <=> i-body.text;
+    in-out property <bool> checked;
+
+    min-width: max(16px, i-layout.min-width);
+    min-height: max(16px, i-layout.min-height);
+    forward-focus: i-extended-touch-area;
+
+    i-touch-area := TouchArea {
+        enabled: i-extended-touch-area.enabled;
+
+        clicked => {
+            i-extended-touch-area.clicked();
+        }
+    }
+
+    i-layout := HorizontalLayout {
+        spacing: 8px;
+
+        i-extended-touch-area := ExtendedTouchArea {
+            y: (parent.height - self.height) / 2;
+            width: 16px;
+            height: self.width;
+            border-radius: self.width / 2;
+
+            i-check-box := Rectangle {
+                width: 100%;
+                height: 100%;
+                border-radius: i-extended-touch-area.border-radius;
+                background: Palette.neutral-7;
+                border-color: Palette.neutral-8;
+                border-width: 1px;
+
+                if (root.checked) : Rectangle {
+                    width: 6px;
+                    height: self.width;
+                    border-radius: self.width / 2;
+                    background: Palette.neutral-2;
+                }
+            }
+        }
+
+        i-body := Body {
+            vertical-alignment: center;
+            color: Palette.neutral-9;
+        }
+    }
+
+    states [
+        checked when root.checked : {
+            i-check-box.background: Brushes.accent-color;
+            i-check-box.border-width: 0;
+        }
+    ]
+}
+
+export component RadioButtonGroup {
+    in-out property <[string]> model;
+    out property <int> current: 0;
+
+    VerticalLayout {
+        spacing: 8px;
+
+        for item[index] in root.model : RadioButton {
+            text: item;
+            checked: index == root.current;
+
+            clicked => {
+                root.current = index;
+            }
+        }
+    }
+}

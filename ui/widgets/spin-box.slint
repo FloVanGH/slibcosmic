@@ -39,6 +39,7 @@ export component SpinBox {
             i-minus-button := IconButton {
                 leading-icon: Icons.minus;
                 forward-focus: i-text-input;
+                enabled: root.enabled;
 
                 clicked => {
                     root.decrement();
@@ -67,6 +68,7 @@ export component SpinBox {
                 }
 
                 i-touch-area := TouchArea {
+                    enabled: root.enabled;
                     clicked => {
                         i-text-input.focus();
                     }
@@ -76,6 +78,7 @@ export component SpinBox {
             i-plus-button := IconButton {
                 leading-icon: Icons.plus;
                 forward-focus: i-text-input;
+                enabled: root.enabled;
 
                 clicked => {
                     root.increment();

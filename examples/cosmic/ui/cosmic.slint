@@ -1,5 +1,5 @@
 import { CosmicWindow, StandardButton, PrimaryButton, TextButton, Switch, Body, Settings, Icons,
-    IconButton, CheckBox, Palette, LineEdit, SpinBox, Hyperlink, ScrollView } from "_imports/cosmic.slint";
+    IconButton, CheckBox, Palette, LineEdit, SpinBox, Hyperlink, ScrollView, RadioButtonGroup } from "_imports/cosmic.slint";
 
 export component Cosmic inherits CosmicWindow {
     min-width: 600px;
@@ -117,15 +117,11 @@ export component Cosmic inherits CosmicWindow {
 
                     Switch {
                         checked: !Settings.dark-color-scheme;
+                        text: "Light";
+
                         toggled(checked) => {
                             Settings.dark-color-scheme = !checked;
                         }
-                    }
-
-                    Body {
-                        text: "Light";
-                        vertical-alignment: center;
-                        color: Palette.neutral-9;
                     }
                 }
 
@@ -147,10 +143,19 @@ export component Cosmic inherits CosmicWindow {
                     Hyperlink {
                         text: "Hyperlink";
                     }
+
                     Hyperlink {
                         text: "Hyperlink";
                         enabled: false;
                     }
+                }
+
+                RadioButtonGroup {
+                    model: [
+                        "Radio 1",
+                        "Radio 2",
+                        "Radio 3",
+                    ];
                 }
             }
 
