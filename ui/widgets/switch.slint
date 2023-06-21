@@ -2,7 +2,7 @@ import { ExtendedTouchArea, Body } from "../components/components.slint";
 import { Brushes, Palette } from "../styling/styling.slint";
 
 export component Switch {
-    callback toggled(bool /* checked */);
+    callback toggled(/* checked */ bool);
 
     in property <bool> enabled <=> i-extended-touch-area.enabled;
     in property <string> text <=> i-body.text;

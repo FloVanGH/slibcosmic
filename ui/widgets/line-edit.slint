@@ -2,8 +2,8 @@ import { Body, Caption, Icon } from "../components/components.slint";
 import { Brushes, Palette, Typography, Settings, Icons } from "../styling/styling.slint";
 
 export component LineEdit {
-    callback accepted(string /* text */);
-    callback edited(string /* text */);
+    callback accepted(/* text */ string);
+    callback edited(/* text */ string);
     callback trailing-icon-clicked();
 
     in property <string> label-text;

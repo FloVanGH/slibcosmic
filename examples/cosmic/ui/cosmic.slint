@@ -1,6 +1,6 @@
 import { CosmicWindow, StandardButton, PrimaryButton, TextButton, Switch, Body, Settings, Icons,
     IconButton, CheckBox, Palette, LineEdit, SpinBox, Hyperlink, ScrollView, RadioButtonGroup,
-    ComboBox } from "../../../ui/cosmic.slint";
+    ComboBox, Slider } from "../../../ui/cosmic.slint";
 
 export component Cosmic inherits CosmicWindow {
     min-width: 600px;
@@ -303,6 +303,17 @@ export component Cosmic inherits CosmicWindow {
                         placeholder-text: "Placeholder";
                         has-error: true;
                         leading-icon: Icons.lock;
+                    }
+                }
+
+                VerticalLayout {
+                    alignment: start;
+                    spacing: 8px;
+
+                    Slider {}
+
+                    Slider {
+                        enabled: false;
                     }
                 }
             }

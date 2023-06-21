@@ -3,7 +3,7 @@ import { Brushes, Palette, Icons } from "../styling/styling.slint";
 import { ScrollView } from "scroll-view.slint";
 
 export component ComboBox {
-    callback selected(string /* current-value */);
+    callback selected(/* current-value */ string);
 
     in property <[string]> model;
     in property <bool> enabled <=> i-focus-scope.enabled;

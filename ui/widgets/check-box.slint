@@ -2,7 +2,7 @@ import { ExtendedTouchArea, Body, Icon } from "../components/components.slint";
 import { Brushes, Palette, Icons } from "../styling/styling.slint";
 
 export component CheckBox {
-    callback toggled(bool /* checked */, bool /* partial-checked */);
+    callback toggled(/* checked */ bool, /* partial-checked */ bool);
 
     in property <bool> enabled <=> i-extended-touch-area.enabled;
     in property <bool> tristate;
