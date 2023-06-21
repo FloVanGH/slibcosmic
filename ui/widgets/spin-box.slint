@@ -21,7 +21,7 @@ export component SpinBox {
     accessible-value-step: (root.maximum - root.minimum) / 100;
 
     // focus border
-    if (root.has-focus) : Rectangle {
+    if (root.has-focus && root.enabled) : Rectangle {
         x: (root.width - self.width) / 2;
         y: (root.height - self.height) / 2;
         width: root.width + 8px;
@@ -69,6 +69,7 @@ export component SpinBox {
 
                 i-touch-area := TouchArea {
                     enabled: root.enabled;
+
                     clicked => {
                         i-text-input.focus();
                     }
