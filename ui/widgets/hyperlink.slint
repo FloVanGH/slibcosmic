@@ -1,4 +1,4 @@
-import { Body } from "../components/components.slint";
+import { Body, Icon} from "../components/components.slint";
 import { Brushes, Typography, Icons } from "../styling/styling.slint";
 
 
@@ -30,13 +30,10 @@ export component Hyperlink {
             }
         }
 
-        Image {
-            image-fit: contain;
+        Icon {
             y: (parent.height - self.height) / 2;
-            source: Icons.link;
-            colorize: i-text.color;
-            width: 16px;
-            height: self.width;
+            icon: Icons.link;
+            color: i-text.color;
         }
     }
 

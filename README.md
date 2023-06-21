@@ -4,7 +4,7 @@
 
 Building blocks for COSMIC applications with Slint.
 
-Display gallery on [SlintPad](https://slint-ui.com/snapshots/master/editor/?load_url=https://github.com/FloVanGH/slibcosmic/blob/main/examples/cosmic/ui/cosmic.slint)
+Open gallery in [SlintPad](https://slint-ui.com/snapshots/master/editor/?load_url=https://github.com/FloVanGH/slibcosmic/blob/main/examples/cosmic/ui/cosmic.slint)
 
 ## Current state
 

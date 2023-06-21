@@ -1,4 +1,4 @@
-import { Body, ExtendedTouchArea } from "../components/components.slint";
+import { Body, ExtendedTouchArea, Icon } from "../components/components.slint";
 import { Brushes, Palette, Settings, Icons } from "../styling/styling.slint";
 
 component ButtonBase inherits ExtendedTouchArea {
@@ -21,13 +21,10 @@ component ButtonBase inherits ExtendedTouchArea {
         spacing: 4px;
         alignment: center;
 
-        if (root.leading-icon.width > 0 && root.leading-icon.height > 0) : Image {
-            image-fit: contain;
+        if (root.leading-icon.width > 0 && root.leading-icon.height > 0) : Icon {
             y: (parent.height - self.height) / 2;
-            source: root.leading-icon;
-            colorize: root.content-color;
-            width: 16px;
-            height: self.width;
+            icon: root.leading-icon;
+            color: root.content-color;
         }
 
         if (root.text != "") : Body {
@@ -37,13 +34,10 @@ component ButtonBase inherits ExtendedTouchArea {
             color: root.content-color;
         }
 
-        if (root.trailing-icon.width > 0 && root.trailing-icon.height > 0) : Image {
-            image-fit: contain;
+        if (root.trailing-icon.width > 0 && root.trailing-icon.height > 0) : Icon {
             y: (parent.height - self.height) / 2;
-            source: root.trailing-icon;
-            colorize: root.content-color;
-            width: 16px;
-            height: self.width;
+            icon: root.trailing-icon;
+            color: root.content-color;
         }
     }
 }

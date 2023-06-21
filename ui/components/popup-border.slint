@@ -1,0 +1,11 @@
+import { Brushes, Palette } from "../styling/styling.slint";
+
+export component PopupBorder inherits Rectangle {
+    background: Palette.neutral-2;
+    border-width: 1px;
+    border-radius: 8px;
+    border-color: Palette.neutral-3;
+    drop-shadow-color: Brushes.shadow;
+    drop-shadow-blur: 16px;
+    drop-shadow-offset-y: 4px;
+}

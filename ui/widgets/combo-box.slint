@@ -1,0 +1,125 @@
+import { Body, PopupBorder, Icon, ListItem } from "../components/components.slint";
+import { Brushes, Palette, Icons } from "../styling/styling.slint";
+import { ScrollView } from "scroll-view.slint";
+
+export component ComboBox {
+    callback selected(string /* current-value */);
+
+    in property <[string]> model;
+    in property <bool> enabled <=> i-focus-scope.enabled;
+    out property <bool> has-focus <=> i-focus-scope.has-focus;
+    in-out property <int> current-index;
+    in-out property <string> current-value <=> i-text.text;
+
+    min-height: max(32px, i-layout.min-height);
+    horizontal-stretch: 1;
+    vertical-stretch: 0;
+    forward-focus: i-focus-scope;
+
+    i-focus-scope := FocusScope {
+        key-pressed(event) => {
+            if (event.text == Key.UpArrow) {
+                root.move-selection-up();
+                return accept;
+            } else if (event.text == Key.DownArrow) {
+
+                root.move-selection-down();
+                return accept;
+            } else if (event.text == Key.Return) {
+                i-popup.show();
+            }
+            return reject;
+        }
+
+        i-touch-area := TouchArea {
+            enabled: root.enabled;
+
+            clicked => {
+                root.focus();
+                i-popup.show();
+            }
+        }
+    }
+
+    i-background := Rectangle {
+        border-radius: 16px;
+
+        i-layout := HorizontalLayout {
+            padding-left: 8px;
+            padding-right: 8px;
+            spacing: 4px;
+
+            i-text := Body {
+                color: Palette.neutral-9;
+                vertical-alignment: center;
+                horizontal-alignment: left;
+            }
+
+            i-icon := Icon {
+                y: (parent.height - self.height) / 2;
+                icon: Icons.drop-down;
+                color: i-text.color;
+            }
+        }
+
+          // focus border
+        if (root.has-focus) : Rectangle {
+            x: (root.width - self.width) / 2;
+            y: (root.height - self.height) / 2;
+            width: root.width + 6px;
+            height: root.height + 6px;
+            border-width: 1px;
+            border-color: Brushes.accent-color;
+            border-radius: i-background.border-radius + 3px;
+        }
+    }
+
+    i-popup := PopupWindow {
+        x: 0px;
+        y: root.height + 3px;
+        width: 140px;
+
+        PopupBorder {
+            ScrollView {
+                min-height: min(model.length, 6) * 32px;
+
+                VerticalLayout {
+                    padding-left: 8px;
+                    padding-right: 5px;
+
+                    for item[index] in root.model : ListItem {
+                        text: item;
+                        selected: index == root.current-index;
+
+                        clicked => {
+                            root.select(index);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    function select(index: int) {
+        root.current-index = index;
+        root.current-value = root.model[root.current-index];
+        root.selected(root.current-value);
+    }
+
+    function move-selection-up() {
+        root.select(Math.max(root.current-index - 1, 0));
+    }
+
+    function move-selection-down() {
+        root.select(Math.min(root.current-index + 1, root.model.length - 1));
+    }
+
+    states [
+        disabled when !root.enabled : {
+            root.opacity: 0.5;
+        }
+        hover when i-touch-area.has-hover && !root.has-focus : {
+            i-background.background: Brushes.hover-state-color;
+        }
+    ]
+}

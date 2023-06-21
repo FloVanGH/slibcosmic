@@ -1,0 +1,40 @@
+import { ExtendedTouchArea } from "extended-touch-area.slint";
+import { Body } from "text.slint";
+import { Icon } from "icon.slint";
+import { Brushes, Palette, Icons } from "../styling/styling.slint";
+
+export component ListItem {
+    callback clicked <=> i-touch-area.clicked;
+
+    in property <string> text <=> i-text.text;
+    in property <bool> selected;
+
+    min-height: max(32px, i-layout.min-height);
+
+    i-touch-area := ExtendedTouchArea {
+        border-radius: 8px;
+
+        i-layout := HorizontalLayout {
+            padding-left: 10px;
+            padding-right: 10px;
+
+            i-text := Body {
+                horizontal-alignment: left;
+                vertical-alignment: center;
+                color: Palette.neutral-9;
+            }
+
+            if (root.selected) : Icon {
+                y: (parent.height - self.height) / 2;
+                icon: Icons.checkmark;
+                color: i-text.color;
+            }
+        }
+    }
+
+    states [
+        select when root.selected : {
+            i-text.color: Brushes.accent-color;
+        }
+    ]
+}

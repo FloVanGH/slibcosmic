@@ -1,4 +1,4 @@
-import { ExtendedTouchArea, Body } from "../components/components.slint";
+import { ExtendedTouchArea, Body, Icon } from "../components/components.slint";
 import { Brushes, Palette, Icons } from "../styling/styling.slint";
 
 export component CheckBox {
@@ -39,12 +39,10 @@ export component CheckBox {
                 border-color: Palette.neutral-8;
                 border-width: 1px;
 
-                if (root.checked || root.partial-checked) : Image {
-                    colorize: Palette.neutral-2;
-                    source: root.checked ? Icons.checkmark : Icons.minus;
-                    image-fit: contain;
+                if (root.checked || root.partial-checked) : Icon {
+                    color: Palette.neutral-2;
+                    icon: root.checked ? Icons.checkmark : Icons.minus;
                     width: 12px;
-                    height: self.width;
                 }
             }
 

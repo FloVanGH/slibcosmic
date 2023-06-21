@@ -1,0 +1,18 @@
+export component Icon {
+    in property <image> icon <=> i-image.source;
+    in property <brush> color <=> i-image.colorize;
+
+    width: 16px;
+    height: self.width;
+
+    i-image := Image {
+        image-fit: contain;
+    }
+
+    Rectangle {
+        width: 100%;
+        height: 100%;
+
+        @children
+    }
+}

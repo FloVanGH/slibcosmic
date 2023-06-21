@@ -1,5 +1,6 @@
 import { CosmicWindow, StandardButton, PrimaryButton, TextButton, Switch, Body, Settings, Icons,
-    IconButton, CheckBox, Palette, LineEdit, SpinBox, Hyperlink, ScrollView, RadioButtonGroup } from "../../../ui/cosmic.slint";
+    IconButton, CheckBox, Palette, LineEdit, SpinBox, Hyperlink, ScrollView, RadioButtonGroup,
+    ComboBox } from "../../../ui/cosmic.slint";
 
 export component Cosmic inherits CosmicWindow {
     min-width: 600px;
@@ -163,6 +164,28 @@ export component Cosmic inherits CosmicWindow {
                 padding: 16px;
                 spacing: 12px;
                 alignment: start;
+
+                HorizontalLayout {
+                    alignment: start;
+                    spacing: 8px;
+
+                    ComboBox {
+                        current-value: "Option 1";
+                        model: [
+                            "Option 1",
+                            "Option 2",
+                            "Option 3",
+                            "Option 4",
+                            "Option 5",
+                            "Option 6",
+                        ];
+                    }
+
+                    ComboBox {
+                        current-value: "Disabled";
+                        enabled: false;
+                    }
+                }
 
                 HorizontalLayout {
                     alignment: start;

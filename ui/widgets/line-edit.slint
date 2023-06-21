@@ -1,4 +1,4 @@
-import { Body, Caption } from "../components/components.slint";
+import { Body, Caption, Icon } from "../components/components.slint";
 import { Brushes, Palette, Typography, Settings, Icons } from "../styling/styling.slint";
 
 export component LineEdit {
@@ -49,12 +49,11 @@ export component LineEdit {
                 padding-right: 16px;
                 spacing: 8px;
 
-                if (root.leading-icon.width > 0 && root.leading-icon.height > 0) : Image {
-                    image-fit: contain;
+                if (root.leading-icon.width > 0 && root.leading-icon.height > 0) : Icon {
                     y: (parent.height - self.height) / 2;
-                    source: root.leading-icon;
+                    icon: root.leading-icon;
                     // FIXME: use color of Brushes or palette
-                    colorize: Settings.dark-color-scheme ? #E4E4E5B3 : #272727B3;
+                    color: Settings.dark-color-scheme ? #E4E4E5B3 : #272727B3;
                     width: 12px;
                 }
 
@@ -96,12 +95,12 @@ export component LineEdit {
                     }
                 }
 
-                if ((root.trailing-icon.width > 0 && root.trailing-icon.height > 0) || root.has-error) : Image {
-                    image-fit: contain;
+                if ((root.trailing-icon.width > 0 && root.trailing-icon.height > 0) || root.has-error) : Icon {
+
                     y: (parent.height - self.height) / 2;
-                    source: root.has-error ? Icons.error : root.trailing-icon;
+                    icon: root.has-error ? Icons.error : root.trailing-icon;
                     // FIXME: use color of Brushes or palette
-                    colorize: root.has-error ? Brushes.destructive-color : Settings.dark-color-scheme ? #E4E4E5B3 : #272727B3;
+                    color: root.has-error ? Brushes.destructive-color : Settings.dark-color-scheme ? #E4E4E5B3 : #272727B3;
                     width: 12px;
 
                     TouchArea {
