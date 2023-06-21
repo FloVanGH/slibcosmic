@@ -19,7 +19,7 @@ component ScrollBar inherits Rectangle {
         height: root.horizontal ? root.size : root.maximum <= 0phx ? 0phx : max(32px, root.track-size * (root.page-size / (root.maximum + root.page-size)));
         x: !root.horizontal ? (parent.width - self.width) / 2 : root.offset + (root.track-size - i-thumb.width) * (-root.value / root.maximum);
         y: root.horizontal ? (parent.height - self.height) / 2 : root.offset + (root.track-size - i-thumb.height) * (-root.value / root.maximum);
-        border-radius: 4px;
+        border-radius: 2px;
         // FIXME: Use brushes from palette
         background: Settings.dark-color-scheme ? #E4E4E4CC : #272727CC;
         border-color: Settings.dark-color-scheme ? #27272733 : #E4E4E433;
@@ -48,6 +48,7 @@ component ScrollBar inherits Rectangle {
     states [
         hover when i-touch-area.has-hover : {
             root.size: 6px;
+            i-thumb.border-radius: 3px;
         }
     ]
 
