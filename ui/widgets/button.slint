@@ -1,5 +1,5 @@
 import { Body, ExtendedTouchArea, Icon } from "../components/components.slint";
-import { Brushes, Palette, Settings, Icons } from "../styling/styling.slint";
+import { Brushes, Palette, Settings, Icons, Images } from "../styling/styling.slint";
 
 component ButtonBase inherits ExtendedTouchArea {
     in property <string> text;
@@ -149,4 +149,113 @@ export component IconButton {
             root.clicked();
         }
     }
+}
+
+export component ImageButton {
+    callback toggled(/* checked */ bool);
+    callback clicked;
+    callback closed;
+
+    in property <image> source: Settings.dark-color-scheme ? Images.image-placeholder-dark : Images.image-placeholder-light;
+    in property <bool> enabled <=> i-touch-area.enabled;
+    in property <bool> checkable;
+    out property <bool> has-focus <=> i-focus-scope.has-focus;
+    out property <bool> pressed <=> i-touch-area.pressed;
+    out property <bool> has-hover <=> i-touch-area.has-hover;
+    in-out property <bool> checked;
+
+    min-width: 120px;
+    min-height: 80px;
+    horizontal-stretch: 0;
+    vertical-stretch: 0;
+    forward-focus: i-focus-scope;
+
+    i-background := Rectangle {
+        border-radius: 8px;
+        clip: true;
+        border-width: 1px;
+        border-color: root.checked ? Brushes.accent-color : transparent;
+
+        Image {
+            source: root.source;
+            width: 100%;
+            height: 100%;
+        }
+
+        if (root.checked) : Rectangle {
+            x: 0;
+            y: parent.height - self.height;
+            width: 24px;
+            height: 20px;
+            border-radius: 8px;
+            background: Palette.neutral-3;
+
+            Rectangle {
+                x: 0;
+                y: 0;
+                width: parent.border-radius;
+                height: 100%;
+                background: parent.background;
+            }
+
+            Rectangle {
+                y: parent.height - self.height;
+                width: 100%;
+                height: parent.border-radius;
+                background: parent.background;
+            }
+
+            Icon {
+                icon: Icons.checkmark;
+                color: Brushes.accent-color;
+            }
+        }
+    }
+
+    i-border := Rectangle {
+        x: (parent.width - self.width) / 2;
+        y: (parent.height - self.height) / 2;
+        width: parent.width + 6px;
+        height: parent.height + 6px;
+        border-radius: 10px;
+        border-width: 1px;
+        border-color: i-focus-scope.has-focus ? Brushes.accent-color : transparent;
+    }
+
+    i-touch-area := TouchArea {
+        clicked => {
+            if (root.checkable) {
+                root.checked = !root.checked;
+                root.toggled(root.checked);
+            }
+
+            root.clicked();
+        }
+    }
+
+    i-focus-scope := FocusScope {
+        x: 0;
+        width: 0px; // Do not react on clicks
+        enabled <=> root.enabled;
+
+        key-pressed(event) => {
+            if (event.text == " " || event.text == "\n") {
+                i-touch-area.clicked();
+                return accept;
+            }
+            return reject;
+        }
+    }
+
+    states [
+        disabled when !root.enabled : {
+            root.opacity: 0.5;
+        }
+        pressed when i-touch-area.pressed : {
+            i-border.background: Brushes.pressed-state-color;
+        }
+        hover when i-touch-area.has-hover : {
+            i-border.background: Brushes.hover-state-color;
+        }
+    ]
 }

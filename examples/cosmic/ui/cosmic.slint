@@ -1,6 +1,6 @@
 import { CosmicWindow, StandardButton, PrimaryButton, TextButton, Switch, Body, Settings, Icons,
     IconButton, CheckBox, Palette, LineEdit, SpinBox, Hyperlink, ScrollView, RadioButtonGroup,
-    ComboBox, Slider } from "../../../ui/cosmic.slint";
+    ComboBox, Slider, ImageButton } from "../../../ui/cosmic.slint";
 
 export component Cosmic inherits CosmicWindow {
     min-width: 600px;
@@ -157,6 +157,19 @@ export component Cosmic inherits CosmicWindow {
                         "Radio 2",
                         "Radio 3",
                     ];
+                }
+
+                HorizontalLayout {
+                    alignment: start;
+                    spacing: 8px;
+
+                    ImageButton {
+                        checkable: true;
+                    }
+
+                    ImageButton {
+                        enabled: false;
+                    }
                 }
             }
 
